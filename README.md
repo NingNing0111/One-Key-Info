@@ -10,7 +10,7 @@
 
 ## 广告
 
-&emsp;1.5￥一个5美刀Key，永不过期,微信公众号关注:`PG Thinker`
+&emsp;1.5￥一个中转5美刀Key，永不过期,微信公众号关注:`PG Thinker`
 
 ![](https://pgthinker.me/wp-content/uploads/2023/09/A9Y13HNF9NXZ3ZAHEGQ.png)
 
