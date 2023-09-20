@@ -8,6 +8,19 @@
 
 ![](https://pgthinker.me/wp-content/uploads/2023/09/DGWGHZJULD3TE63VY.png)
 
+## 运行
+
+```
+# 下载本项目
+git clone https://github.com/NingNing0111/One-Key-Info.git
+# 进入项目的根目录
+cd One-Key-Info
+# 构建
+go build
+# 运行
+go run .
+```
+
 ## 广告
 
 &emsp;1.5￥一个中转5美刀Key，永不过期,微信公众号关注:`PG Thinker`
