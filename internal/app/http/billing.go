@@ -48,7 +48,7 @@ func getSub(key *string) SubData {
 	url := BASEURL + env.UrlSub
 	log.Println("请求地址：", url)
 	resp, err := client.R().
-		SetHeader("Authorization", "Bearer "+*key).
+		SetHeader("Authorization", "Bearer " + *key).
 		SetHeader("Content-type", "application/json").
 		Get(url)
 

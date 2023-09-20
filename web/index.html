@@ -15,7 +15,7 @@
 <div class="container" id="app">
 
     <h1 class="text-center">API-KEY查询系统</h1>
-    <h5 class="text-center">作者博客：<a href="https://pgthinker.me">pgthinker.me</a> &emsp;&emsp;项目地址：<a href="https://github.com/ningning0111/opn-api-info">one-api-info</a></h5>
+    <h5 class="text-center">作者博客：<a href="https://pgthinker.me">pgthinker.me</a> &emsp;&emsp;项目地址：<a href="https://github.com/NingNing0111/One-Key-Info">one-api-info</a></h5>
 
 
     <div class="row">
@@ -106,7 +106,7 @@
                 this.keyInfo=[]
                 const arr = this.getKeys();
                 this.count = arr.length;
-                let startTime = 3, offsetTime = 5; // 默认每隔3-8s发送一次请求
+                let startTime = 5, offsetTime = 5; // 默认每隔3-8s发送一次请求
                 if(this.keyInfo.length !== this.count){
                     this.disSubmit = true
                     arr.forEach(item => {
