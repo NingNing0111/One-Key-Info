@@ -1,13 +1,14 @@
 package http
 
 import (
-	"github.com/go-resty/resty/v2"
 	"log"
 	"onekeyinfo/configs"
 	"onekeyinfo/internal/app/model"
 	"onekeyinfo/internal/app/util"
 	"strconv"
 	"time"
+
+	"github.com/go-resty/resty/v2"
 )
 
 var client *resty.Client = nil
@@ -48,14 +49,14 @@ func getSub(key *string) SubData {
 	url := BASEURL + env.UrlSub
 	log.Println("请求地址：", url)
 	resp, err := client.R().
-		SetHeader("Authorization", "Bearer " + *key).
+		SetHeader("Authorization", "Bearer "+*key).
 		SetHeader("Content-type", "application/json").
 		Get(url)
 
 	subData := SubData{}
 
 	if err != nil {
-		log.Fatal(url, " ---> 请求失败")
+		log.Fatal(err, " ---> 请求失败")
 	} else {
 		util.Parse(resp.String(), &subData)
 	}
@@ -85,15 +86,3 @@ func getUsage(key *string) Usage {
 	usage.TotalUsage /= 100
 	return usage
 }
-
-//func getModels() (*resty.Response, error) {
-//	url := BASEURL + env.UrlModel
-//	resp, err := client.R().
-//		SetHeader("Authorization", "Bearer "+KEY).
-//		SetHeader("Content-type", "application/json").
-//		Get(url)
-//	if err != nil {
-//		log.Fatal(url, " ---> 请求失败")
-//	}
-//	return resp, err
-//}

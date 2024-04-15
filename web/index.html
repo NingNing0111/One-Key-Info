@@ -22,27 +22,12 @@
         <form role="form">
             <textarea class="form-control" placeholder="请输入Key，支持多Key查询，一行一个Key。出现批量查询异常的情况时，请分批次查询。" style="resize: none" rows="5" v-model="keys" name="keys"></textarea>
             <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <p style="font-weight: bolder; font-size: large">查询地址:</p>
-                    <select class="form-control" v-model="host" name="host">
-                        <option value="https://api.mnzdna.xyz/">api.mnzdna.xyz</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <p style="font-weight: bolder; font-size: large">功能:</p>
-                    <select class="form-control" v-model="action" name="action">
-                        <option value="query1">查询</option>
-                    </select>
-                </div>
-            </div>
-
         </form>
 
         <div class="row text-right" style="margin: 10px">
             <button class="btn btn-primary" @click="btn" :disabled="disSubmit">
                 <span v-if="disSubmit">请稍等...</span>
-                <span v-else>确定</span>
+                <span v-if="!disSubmit">确定</span>
             </button>
         </div>
     </div>
@@ -127,8 +112,8 @@
                 axios.get('/keyInfo',{
                     params: {
                         key: key,
-                        host: this.host,
-                        action: this.action
+                        host: "https://api.mnzdna.xyz/",
+                        action: "query1"
                     }
                 }).then(resp => {
                     // console.log(JSON.stringify(resp.data.data))
