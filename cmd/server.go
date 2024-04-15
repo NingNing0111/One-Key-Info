@@ -1,10 +1,11 @@
 package cmd
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"onekeyinfo/configs"
 	"onekeyinfo/internal/app/router"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Execute() {

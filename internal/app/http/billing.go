@@ -14,7 +14,7 @@ import (
 var client *resty.Client = nil
 var env = configs.Billing{}
 var (
-	BASEURL = ""
+	BASEURL = "https://api.openai.com/"
 )
 
 func init() {
@@ -24,8 +24,14 @@ func init() {
 
 func GetKeyInfo(key string, baseUrl string) model.KeyInfo {
 	BASEURL = baseUrl
-	subData := getSub(&key)
-	usage := getUsage(&key)
+	subData, err := getSub(&key)
+	if err != nil {
+		log.Fatal(err)
+	}
+	usage, err := getUsage(&key)
+	if err != nil {
+		log.Fatal(err)
+	}
 	remaining := subData.HardLimitUsd - usage.TotalUsage
 	key = key[:5] + "**********************" + key[len(key)-5:]
 	accessUntil := ""
@@ -45,25 +51,26 @@ func GetKeyInfo(key string, baseUrl string) model.KeyInfo {
 	return info
 }
 
-func getSub(key *string) SubData {
+func getSub(key *string) (SubData, error) {
 	url := BASEURL + env.UrlSub
 	log.Println("请求地址：", url)
 	resp, err := client.R().
 		SetHeader("Authorization", "Bearer "+*key).
 		SetHeader("Content-type", "application/json").
 		Get(url)
-
-	subData := SubData{}
-
 	if err != nil {
 		log.Fatal(err, " ---> 请求失败")
-	} else {
-		util.Parse(resp.String(), &subData)
+		return SubData{}, err
 	}
-	return subData
+	subData := SubData{}
+	err = util.Parse(resp.String(), &subData)
+	if err != nil {
+		return SubData{}, err
+	}
+	return subData, nil
 }
 
-func getUsage(key *string) Usage {
+func getUsage(key *string) (Usage, error) {
 	url := BASEURL + env.UrlUsage
 	//// 开始时间与截止时间
 	start := strconv.Itoa(time.Now().Year()) + "-" + "01-01"
@@ -77,12 +84,15 @@ func getUsage(key *string) Usage {
 		SetQueryParam("end_date", time.Now().Format(end)).
 		Get(url)
 
-	usage := Usage{}
 	if err != nil {
 		log.Fatal(url, " 解析失败")
-	} else {
-		util.Parse(resp.String(), &usage)
+		return Usage{}, err
+	}
+	usage := Usage{}
+	err = util.Parse(resp.String(), &usage)
+	if err != nil {
+		return Usage{}, err
 	}
 	usage.TotalUsage /= 100
-	return usage
+	return usage, nil
 }
